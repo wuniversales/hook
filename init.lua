@@ -5,8 +5,8 @@ hook={
 	pvp = minetest.settings:get_bool("enable_pvp") == true,
 }
 
-dofile(minetest.get_modpath("hook") .. "/project.lua")
-dofile(minetest.get_modpath("hook") .. "/pchest.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/project.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/pchest.lua")
 
 if hook.tmp_time=="" or hook.tmp_time==nil then
 	hook.tmp_time=890
@@ -450,52 +450,102 @@ minetest.register_tool("hook:mba", {
 	end
 })
 
-minetest.register_craft({
-	output = "hook:mba",
-	recipe = {
-		{"","default:steel_ingot",""},
-		{"default:steel_ingot","default:steel_ingot","default:steel_ingot"},
-		{"default:steel_ingot","","default:steel_ingot"},
-	}
-})
+if minetest.get_modpath("mcl_core") then
+	minetest.register_craft({
+		output = "hook:mba",
+		recipe = {
+			{"", "mcl_core:iron_ingot",""},
+			{"mcl_core:iron_ingot", "mcl_core:iron_ingot","mcl_core:iron_ingot"},
+			{"mcl_core:iron_ingot", "mcl_core:iron_ingot","mcl_core:iron_ingot"}
+		 },
+	})
 
-minetest.register_craft({
-	output = "hook:hook",
-	recipe = {
-		{"","default:steel_ingot",""},
-		{"","default:steel_ingot","default:steel_ingot"},
-		{"default:steel_ingot","",""},
-	}
-})
-minetest.register_craft({
-	output = "hook:hook_upgrade",
-	recipe = {
-		{"","hook:hook",""},
-		{"","hook:hook",""},
-		{"","default:steel_ingot",""},
-	}
-})
+	minetest.register_craft({
+		output = "hook:hook",
+		recipe = {
+			{"", "mcl_core:iron_ingot",""},
+			{"", "mcl_core:iron_ingot","mcl_core:iron_ingot"},
+			{"mcl_core:iron_ingot", "",""}
+		},
+	})
+    minetest.register_craft({
+		output = "hook:hook_upgrade",
+		recipe = {
+			{"", "hook:hook",""},
+			{"", "hook:hook",""},
+			{"", "mcl_core:iron_ingot",""}
+		},
+	})
+    minetest.register_craft({
+		output = "hook:climb_rope",
+		recipe = {
+			{"","mcl_core:iron_ingot",""},
+            {"","mcl_core:iron",""},
+            {"","mcl_core:iron_ingot",""}
+		},
+	})
+    minetest.register_craft({
+		output = "hook:climb_rope_locked",
+		recipe = {
+			{"hook:climb_rope","mcl_core:iron_ingot",""}
+		},
+	})
+    minetest.register_craft({
+		output = "hook:slingshot",
+		recipe = {
+			{"mcl_core:iron_ingot","","mcl_core:iron_ingot"},
+            {"","mcl_core:iron",""},
+            {"","mcl_core:iron_ingot",""}
+		},
+	})
+else
+	minetest.register_craft({
+        output = "hook:mba",
+        recipe = {
+            {"","default:steel_ingot",""},
+            {"default:steel_ingot","default:steel_ingot","default:steel_ingot"},
+            {"default:steel_ingot","","default:steel_ingot"},
+        }
+    })
 
-minetest.register_craft({
-	output = "hook:climb_rope",
-	recipe = {
-		{"","default:steel_ingot",""},
-		{"","default:steelblock",""},
-		{"","default:steel_ingot",""},
-	}
-})
-minetest.register_craft({
-	output = "hook:climb_rope_locked",
-	recipe = {
-		{"hook:climb_rope","default:steel_ingot",""},
-	}
-})
+    minetest.register_craft({
+        output = "hook:hook",
+        recipe = {
+            {"","default:steel_ingot",""},
+            {"","default:steel_ingot","default:steel_ingot"},
+            {"default:steel_ingot","",""},
+        }
+    })
+    minetest.register_craft({
+        output = "hook:hook_upgrade",
+        recipe = {
+            {"","hook:hook",""},
+            {"","hook:hook",""},
+            {"","default:steel_ingot",""},
+        }
+    })
 
-minetest.register_craft({
-	output = "hook:slingshot",
-	recipe = {
-		{"default:steel_ingot","","default:steel_ingot"},
-		{"","default:steelblock",""},
-		{"","default:steel_ingot",""},
-	}
-})
+    minetest.register_craft({
+        output = "hook:climb_rope",
+        recipe = {
+            {"","default:steel_ingot",""},
+            {"","default:steelblock",""},
+            {"","default:steel_ingot",""},
+        }
+    })
+    minetest.register_craft({
+        output = "hook:climb_rope_locked",
+        recipe = {
+            {"hook:climb_rope","default:steel_ingot",""},
+        }
+    })
+
+    minetest.register_craft({
+        output = "hook:slingshot",
+        recipe = {
+            {"default:steel_ingot","","default:steel_ingot"},
+            {"","default:steelblock",""},
+            {"","default:steel_ingot",""},
+        }
+    })
+end
