@@ -1,4 +1,5 @@
 default?
 mcl_core?
+mcl_chests?
 loot?
 doc?
