@@ -1,6 +1,16 @@
 pchest={}
 
-minetest.register_craft({
+if minetest.get_modpath("mcl_core") then
+	minetest.register_craft({
+		output = "hook:pchest",
+		recipe = {
+			{"mcl_core:stick", "mcl_core:stick","mcl_core:stick"},
+			{"mcl_core:stick", "mcl_chests:chest","mcl_core:diamondblock"},
+			{"mcl_core:stick", "mcl_core:stick","mcl_core:stick"}
+		 },
+	})
+else
+	minetest.register_craft({
 	output = "hook:pchest",
 	recipe = {
 		{"default:stick","default:stick","default:stick"},
@@ -8,6 +18,7 @@ minetest.register_craft({
 		{"default:stick","default:stick","default:stick"},
 	}
 })
+end
 
 pchest.setpchest=function(pos,user)
 	local meta = minetest.get_meta(pos)
